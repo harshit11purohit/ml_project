@@ -18,3 +18,20 @@ class CustomException(Exception):
     def __str__(self):
         return self.error_message
 
+
+#It takes the filename, line number, and the error message (like "Access Denied") and builds one clean, readable sentence
+#super().__init__(error_message): This tells the original Python Exception class, "Hey, I'm taking over now, but keep the basic error message
+#self.error_message = ...: It calls your "Detective" function and stores that detailed sentence (File + Line + Message) inside the object
+# end "Whenever someone tries to print this error or show it in the terminal, show them my detailed custom message instead of the default one."
+
+
+# when error occurs somehwere try catch send two things   the error itself (ex) and the entire Python system state (sys).
+#e is the Error Object
+
+'''Imagine your MySQL password is wrong.
+
+What e contains: The specific error code and message from the database.
+
+The actual value of e in this case: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")'''
+
+#
