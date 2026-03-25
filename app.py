@@ -3,6 +3,7 @@ from src.ML_PROJECT.exception import CustomException
 # from src.ML_project import logger
 from src.ML_PROJECT.components.data_ingestion import DataIngestion
 from src.ML_PROJECT.components.data_ingestion import DataIngestionConfig
+from src.ML_PROJECT.components.data_transformation import DataTransformationConfig,DataTransformation
 import sys
 
 if __name__=="__main__":
@@ -10,7 +11,20 @@ if __name__=="__main__":
     
     try:
        data_ingestion=DataIngestion()
-       data_ingestion.initiate_data_ingestion()
+       train_data_path,test_data_path=data_ingestion.initiate_data_ingestion()
+       
+       #data_transformation_config=DataTransformationConfig()
+       data_transformation=DataTransformation()
+       data_transformation.initiate_data_transormation(train_data_path,test_data_path)
+       
+    
+    
+    
+    
+      
+      
+      
+       
     except Exception as e:
         logging.info(" custom exception")
         raise CustomException(e,sys)
