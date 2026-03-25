@@ -23,4 +23,3 @@ if __name__=="__main__":
 #It creates a full path only path .no folder created ..just a name logs created by joining 3 parts: log_path = full path of log file  C:\Users\...\ML_project\logs\03_24_2026_21_30_45.log
 # You are trying to create a folder with file name (.log)
 # LOG_FILE_PATH = os.path.join(log_path, LOG_FILE)  .../logs/03_24_2026.log/03_24_2026.log
-# 
