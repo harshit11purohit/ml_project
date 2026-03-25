@@ -5,6 +5,8 @@ from src.ML_PROJECT.exception import CustomException
 from src.ML_PROJECT.logger import logging
 from dataclasses import dataclass
 import pandas as pd
+import pickle
+import numpy as np
 
 from dotenv import load_dotenv
 
@@ -32,6 +34,19 @@ def read_sql_data():
     except Exception as ex:
         raise CustomException(ex,sys)
     
+def save_object(file_path, obj):
+    try:
+        dir_path = os.path.dirname(file_path)
+
+        os.makedirs(dir_path, exist_ok=True)
+
+        with open(file_path, "wb") as file_obj:
+            pickle.dump(obj, file_obj)
+
+    except Exception as e:
+        raise CustomException(e, sys)
+
+
     
 # pymysql: This is the "driver." Think of it as the specialized cable that allows Python to plug into a MySQL database.
 #It knocks on the door of your MySQL server at localhost:3306.
