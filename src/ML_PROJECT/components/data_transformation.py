@@ -1,13 +1,12 @@
 import sys
 from dataclasses import dataclass
-
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-
+import pickle
 from src.ML_PROJECT.utils import save_object
 from src.ML_PROJECT.exception import CustomException
 from src.ML_PROJECT.logger import logging
@@ -65,7 +64,7 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e,sys)
         
-    def initiate_data_transormation(self,train_path,test_path):
+    def initiate_data_transformation(self,train_path,test_path):
         try:
             if not os.path.exists(train_path):
                  raise FileNotFoundError("Train file not found")
@@ -106,18 +105,14 @@ class DataTransformation:
                 obj=preprocessing_obj
             )
 
-            '''return (
+            return (
 
                 train_arr,
                 test_arr,
                 self.data_transformation_config.preprocessor_obj_file_path
-            )'''
+            )
             
-            return {
-               "train": train_arr,
-               "test": test_arr,
-               "preprocessor_path": self.data_transformation_config.preprocessor_obj_file_path
-                }
+            
 
         except Exception as e:
             raise CustomException(e,sys)
