@@ -9,3 +9,7 @@ artifacts/
 notebook/data/"catboost_info/" 
 "notebook/catboost_info/" 
 "mlruns/" 
+echo catboost_info/ >> .gitignore
+echo notebook/catboost_info/ >> .gitignore
+echo mlruns/ >> .gitignore
+echo notebook/data/ >> .gitignore
