@@ -14,10 +14,10 @@ from src.ML_PROJECT.logger import logging
 import os
 
 
-
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path=os.path.join('artifacts','preprocessor.pkl')
+
 
 class DataTransformation:
     def __init__(self):
@@ -25,7 +25,9 @@ class DataTransformation:
 
     def get_data_transformer_object(self):
         '''
-        this function is responsible for data transformation
+        Reads train/test data, applies preprocessing pipeline,
+        and returns transformed arrays with target column.
+        
         '''
         try:
             numerical_columns = ["writing_score", "reading_score"]
@@ -65,22 +67,22 @@ class DataTransformation:
         
     def initiate_data_transormation(self,train_path,test_path):
         try:
-            train_df=pd.read_csv(train_path)
+            if not os.path.exists(train_path):
+                 raise FileNotFoundError("Train file not found")
+             
+            train_df=pd.read_csv(train_path)# brought from artifacts folder
             test_df=pd.read_csv(test_path)
 
             logging.info("Reading the train and test file")
 
-            preprocessing_obj=self.get_data_transformer_object()
+            preprocessing_obj=self.get_data_transformer_object() # This is  fxn of same class .. we are using inside it 
 
             target_column_name="math_score"
             numerical_columns = ["writing_score", "reading_score"]
 
-            ## divide the train dataset to independent and dependent feature
-
             input_features_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
 
-            ## divide the test dataset to independent and dependent feature
 
             input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df=test_df[target_column_name]
@@ -104,13 +106,32 @@ class DataTransformation:
                 obj=preprocessing_obj
             )
 
-            return (
+            '''return (
 
                 train_arr,
                 test_arr,
                 self.data_transformation_config.preprocessor_obj_file_path
-            )
+            )'''
+            
+            return {
+               "train": train_arr,
+               "test": test_arr,
+               "preprocessor_path": self.data_transformation_config.preprocessor_obj_file_path
+                }
 
         except Exception as e:
-            raise CustomException(sys,e)
+            raise CustomException(e,sys)
 
+
+
+'''return (
+    input_feature_train_arr,
+    target_feature_train_df,
+    input_feature_test_arr,
+    target_feature_test_df,
+    self.data_transformation_config.preprocessor_obj_file_path
+)
+Pipeline([
+    ("preprocessor", preprocessor),
+    ("model", model)
+])'''
