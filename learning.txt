@@ -105,7 +105,7 @@ DAY 3
 
 
 ** DAY 4 
-
+[.dvc , .dvcignore , artifacts files ]
 DATA VERSONING USING DVC
 
     DVC (Data Version Control) is exactly like Git, but built specifically for massive data files and machine learning models.
@@ -114,3 +114,15 @@ DATA VERSONING USING DVC
   ** we add files through DVC ..dvc init 
   * .gitignore file inside .dvc ..whcih will help to untrack non needed dvc files 
   *  we have to untrack csv files from git to track them from dvc .... dvc add artiifacts/raw.csv ... new file of form raw.csv.dvc will be added.. 
+
+
+
+
+         DVC handles the heavy lifting: Instead of telling Git to track artifacts/train.csv, you tell DVC to track it.
+
+         the "Claim Ticket": DVC takes your massive CSV file, securely stores it somewhere else (like an Amazon S3 bucket, Google Drive, or a separate local folder), and leaves behind a tiny, lightweight text file in your folder called train.csv.dvc. Think of this .dvc file as a coat-check claim ticket.
+
+         Git tracks the ticket: You then tell Git to track that tiny .dvc claim ticket.
+
+
+
