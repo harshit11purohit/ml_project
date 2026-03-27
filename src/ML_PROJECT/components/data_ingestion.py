@@ -32,7 +32,7 @@ class DataIngestion:
             df = pd.read_csv(os.path.join('notebook','data','raw.csv'))
             logging.info("Reading completed from MySQL database")
 
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True) # any of the three to make artifacts folder
 
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
 

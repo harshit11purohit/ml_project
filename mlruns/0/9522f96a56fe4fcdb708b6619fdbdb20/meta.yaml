@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Jagdish%20singh/OneDrive/Desktop/ML_project/mlruns/0/9522f96a56fe4fcdb708b6619fdbdb20/artifacts
+end_time: 1774504568690
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9522f96a56fe4fcdb708b6619fdbdb20
+run_name: incongruous-lark-735
+run_uuid: 9522f96a56fe4fcdb708b6619fdbdb20
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774504562960
+status: 3
+tags: []
+user_id: root

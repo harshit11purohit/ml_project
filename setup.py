@@ -1,7 +1,6 @@
 from setuptools import find_packages, setup
 from typing import List
 
-# This constant represents the "trigger" that connects setup.py to requirements.txt
 HYPEN_E_DOT = "-e ."
 
 def get_requirements(file_path: str) -> List[str]:
@@ -13,10 +12,9 @@ def get_requirements(file_path: str) -> List[str]:
     
   
     with open(file_path) as file_obj:
-        # 2. Read all lines into a temporary list
+
         raw_lines = file_obj.readlines()
 
-        # 3. Clean each line using a simple FOR loop
         for req in raw_lines:
            
             cleaned_req = req.replace("\n", "")
@@ -25,12 +23,28 @@ def get_requirements(file_path: str) -> List[str]:
 
     return requirements
 
-# The actual configuration of your project
 setup(
     name='ML_project',
     version='0.0.1',
     author='harshit',
-    author_email='your_email@example.com', # Added a placeholder for clarity
+    author_email='harshitpurohit953@gmail.com',
     packages=find_packages(),
     install_requires=get_requirements('requirements.txt')
 )
+
+
+
+
+
+
+
+
+'''def get_requirements(file_path:str)->list[str]:
+    requirements=[]
+    with open(file_path) as file_obj:
+        l1=file_obj.readlines();
+        for req in l1:
+            req.replace("\n","")
+            requirements.append(req)
+    
+    return requirements'''

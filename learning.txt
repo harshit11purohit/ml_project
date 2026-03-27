@@ -1,0 +1,116 @@
+DAY 1
+
+
+** venv-
+Preventing "Version Conflicts"
+Perfect Reproducibility (The requirements.txt Magic)
+conda create -p venv python=3.10.0
+conda activate venv/
+
+venv (Virtual Environment): The folder containing your isolated Python tools (the mini-kitchen).
+.env (Environment Variables): The file hiding your secret passwords (like your DagsHub token).
+
+**git setup
+** requirements.txt file adding ..install numpy pandas
+** setup.py ...adding this file ..officially turns your entire ML project into a custom Python package,allowing you to import your own files effortlessly.
+               Step 1: Create the setup.py file
+               step2 :setup.py run automatically whenever you install your project , Open your requirements.txt file,
+               step 3: -e . pip install -r requirements.txt
+
+               I created a function which will extract all package s from requirements.txt instead of automatically writing them on setup.py
+               COMMAND-python setup.py install
+
+               "-e." automatically calls setup .py and packages will me made directly when calling requirement.txt
+
+
+
+
+
+DAY 2  
+
+   *** PIPELINING CONCEPTS 
+        * Training pipeline ---
+                  * data source=MYSQL
+                  * data ingestion= csv files ++ train test split
+                  * data transformation=EDA + feature engineering
+                  * model Training= multiples models and predictions 
+                  * model monitoring
+                  * model deployment
+
+        * prediction pipeline
+
+
+
+
+create template.py --- import os,path etc 
+                * create list of files to be created ..structure making -> f"src/{PROJECT_NAME}/components/data_ingestion.py"
+                ** source 
+                    * components =[ingestion ,monitoring,tranformation,training]
+                    * pipelines =[training_pipeline , prediction_pipeline]
+                    * utils , logger,exception
+                
+                ** app.py , dockerfile, requirements.txt, setup.py , app.py
+
+ using os.path.exits() ,, os.makedirs() , os.path.split() = filepath, dirpath()
+ traverse full list of file check if dir , file  exits if not make both else pass
+ ** if i want to make  a new file . can add using template.py in list_of_files
+              
+              **f"src/{PROJECT_NAME}/components/data_ingestion.py"**  structure 
+
+
+
+
+
+
+DAY 3
+
+
+[ data ingestion.py + utils.py + app.py ]
+
+     Data comes in -> Folder is built -> Raw data is backed up
+     -> Data is sliced 80/20 -> Slices are saved ->
+    File paths are handed off to the next component.
+
+
+     ** create DB mysql  , click on db ,then-> import table wizard ,, all data will be imported on database ..select * from students
+      * next step is to bring data from sql..done through utils.py
+               * use pymysql , mysql-python-connector
+               * load_dotenv()     ,, host=os.getenv("host")
+               * df=pd.read_sql_query('Select * from students',mydb)
+               * mydb=pymysql.connect(,,,===,-----,,,,)
+               * utils.py has providd a dataframe 
+
+
+    * os = filepaths ,, sys = custom exception handling
+    * create a .env file ... add credietials details of database 
+
+
+    ** DATA INGESTION   --  WE have to give this file raw data path, train data path , test data path
+                        ** job is to take that giant block of data, save a backup, slice it into training and testing pieces, and save those pieces into your artifacts folder.
+
+                        *  class data_ingestionConfig : os.path.join safely creates text strings representing file paths (e.g., "artifacts/train.csv").
+                        *  create a folder and a file train/test.. using path provided in previous class  
+                        *  save a file as raw.csv in artifacts folder...df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
+                        *  applying train test split ans pushing/adding that data inside train-data and test-data-path in artifacts folder 
+
+**** Importing classes from data_ingestion.py file to app.py file ..From src.ML_PROJECT.components.data_transformation import DataTransformationConfig
+** data_ingestion=DataIngestion()
+        train_data_path, test_data_path = data_ingestion.initiate_data_ingestion()
+
+        making object of a class and using that object to a function inside the class
+
+
+
+
+
+
+** DAY 4 
+
+DATA VERSONING USING DVC
+
+    DVC (Data Version Control) is exactly like Git, but built specifically for massive data files and machine learning models.
+
+  ** tracking of data like ( raw.csv,train.csv.test.csv)  using DVC.if in future any new data added e get to know .pip install DVC
+  ** we add files through DVC ..dvc init 
+  * .gitignore file inside .dvc ..whcih will help to untrack non needed dvc files 
+  *  we have to untrack csv files from git to track them from dvc .... dvc add artiifacts/raw.csv ... new file of form raw.csv.dvc will be added.. 
