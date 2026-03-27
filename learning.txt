@@ -126,6 +126,75 @@ DATA VERSONING USING DVC
 
 
 
-DAY 5 feature engineering and EDA
+DAY [5 + 6 ] feature engineering and EDA
 
 
+this 2 days we have worked on eda and training multiple models and printing r2 score 
+and found the best model
+
+
+
+
+DAY [7]  DATA transformation
+
+[data_transformation.py + utils.py]
+
+1. Define config to store path for saving the preprocessor (`preprocessor.pkl`).
+2. Build a preprocessing pipeline:
+
+   * Numerical → impute (median) + scale
+   * Categorical → impute (most frequent) + one-hot encode + scale
+3. Read train and test datasets.
+4. Split each into input features (X) and target (`math_score`).
+5. Fit the pipeline on train data and transform both train and test.
+6. Combine transformed features with target into final arrays.
+7. Save the fitted preprocessing object for future use.
+8. Return processed train data, test data, and saved file path.
+
+                  one thing that can be improved is to avoid merging after preprocesing and performing everything in same sequence 
+                  return (
+                      input_feature_train_arr,
+                      target_feature_train_df,
+                      input_feature_test_arr,
+                       self.data_transformation_config.preprocessor_obj_file_path
+                      )
+                      Pipeline([
+                          ("preprocessor", preprocessor),
+                          ("model", model)
+                      ])
+
+but in this project we have done seprately ..but this is prev code s industry standard
+
+
+we have added a fxn in utils.py to download pickle file for saving object
+we have to call that fxn in transformation file with passing  location to save model and object of trained pipeline
+
+
+
+DAY 8
+[MODEL TRAINING AND HYPER PARAMTER TUNING]
+
+we have made a fxn named evaluate models in utils.py 
+we have passed multiple hyperparamter for each model in model_trainer.py 
+we have to create a pickle file of tuned model 
+
+
+
+day9 [dagsbug and ML FLOW 
+
+
+Step 1: Get Credentials (DagsHub Website)
+
+Copied your secure Tracking URI, Username, and Token from your DagsHub project settings.
+
+Step 2: Secure Passwords (.env)
+
+Saved those credentials as MLFLOW_TRACKING_URI, MLFLOW_TRACKING_USERNAME, and MLFLOW_TRACKING_PASSWORD to keep them hidden.
+
+Step 3: Wire Code to Cloud (model_trainer.py)
+
+Replaced the hardcoded tutorial link with os.getenv() commands to dynamically pull your secure .env credentials and connect MLflow to your DagsHub.
+
+Step 4: Ignore Junk Files (.gitignore)
+
+Added mlruns/ and catboost_info/ so Git ignores the massive log files generated during training.]
